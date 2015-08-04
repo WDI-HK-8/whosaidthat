@@ -48,7 +48,7 @@ exports.register = function(server, options, next){
           if (result.authenticated) {
             var db = request.server.plugins['hapi-mongodb'].db;
 
-            var tweet = {
+            var quote = {
               "message": request.payload.quote.message,
                 "user_id: result.user_id"
             };
@@ -88,7 +88,7 @@ var quotes = [
     'What ever you do, do it well. Do it so well that when people see you do it they will want to come back and see you do it again and they will want to bring others and show them how well you do what you do',
 
     'You can design and create, and build the most wonderful place in the world. But it takes people to make the dream a reality.',
-    
+
     'All our dreams can come true, if we have the courage to pursue them.']
   },
 
@@ -98,25 +98,25 @@ var quotes = [
     nationality:'American','Scottish',
     occupation: 'industrialist', 'metal', 'US steel', 'philanthropist', 'businessman', 'business',
 
-    text:'He that cannot reason is a fool. He that will not is a bigot. He that dare not is a slave.',
+    quotes:['He that cannot reason is a fool. He that will not is a bigot. He that dare not is a slave.',
 
-    text:'It marks a big step in your development when you come to realize that other people can help you do a better job than you could do alone.',
+    'It marks a big step in your development when you come to realize that other people can help you do a better job than you could do alone.',
 
-    text:'You cannot push anyone up a ladder unless he is willing to climb a little.',
+    'You cannot push anyone up a ladder unless he is willing to climb a little.',
 
-    text: 'A man who acquires the ability to take full possession of his own mind may take possession of anything else to which he is justly entitled.',
+    'A man who acquires the ability to take full possession of his own mind may take possession of anything else to which he is justly entitled.',
 
-    text: 'People who are unable to motivate themselves must be content with mediocrity, no matter how impressive their other talents.',
+    'People who are unable to motivate themselves must be content with mediocrity, no matter how impressive their other talents.',
 
-    text: 'Concentrate your energies, your thoughts and your capital. The wise man puts all his eggs in one basket and watches the basket.',
+    'Concentrate your energies, your thoughts and your capital. The wise man puts all his eggs in one basket and watches the basket.']
   },
 
   {
     author: 'Henry Ford'
     DOB: '1863',
     nationality: 'American'
-    occupation: 'Founder of Ford Motor', 'engineer', 'businessman', 'inventor'
-    text:
+    occupation: 'Founder of Ford Motor', 'engineer', 'businessman', 'inventor',
+    quotes:[,]
 
   },
 
@@ -124,50 +124,52 @@ var quotes = [
     author:'Napoleon',
      DOB:'1769',
     nationality:'French',
-    occupation:'dictator','General', 'military', 'leader','political', 'politics', 'governor'
-    text: ,
+    occupation:'dictator','General', 'military', 'leader','political', 'politics', 'governor',
+    quotes:[,] ,
   },
   {
    Oscar Wilde
       DOB:'1854',
     nationality:'Irish', 'English', 'British',
-    occupation:'author', 'playright', 'poet', 'writer' 
+    occupation:'author', 'playright', 'poet', 'writer',
+    quotes:[,] 
   },
   {
   Aristotle 
      DOB: '384 BC',
     nationality: 'Greek',
     occupation:'philopsopher', 'thinker', 'writer', 'scientist',
+    quotes:[,]
   },
 
     {
     author: 'Socrates'
     DOB: '469 BC',
     nationality: 'greek',
-    occupation: 'philosophy', 'ethics', 'writer'
-    text: ,
+    occupation: 'philosophy', 'ethics', 'writer',
+    quotes:[,]
   },
 
   {
     author: albert Einstein 
        DOB:'1879',
     nationality:'German','Swiss', 'American,'
-    occupation: 'scientist', 'thinker', 'physicist', 'physics', 'science' 
-
+    occupation: 'scientist', 'thinker', 'physicist', 'physics', 'science', 
+    quotes:[,]
   },
   {
     author: Benjamin Franklin
        DOB:'1785',
     nationality:'American',
-    occupation:'inventor', 'diplomat',  'author', 'printer', 'political theorist', 'politician', 'postmaster', 'scientist', 'civic activist', 'statesman', and 'diplomat'
-
+    occupation:'inventor', 'diplomat',  'author', 'printer', 'political theorist', 'politician', 'postmaster', 'scientist', 'civic activist', 'statesman', and 'diplomat',
+    quotes:[,]
   },
   {
   author: Winston Churchhill
      DOB:'1874',
     nationality:'English', 'British',
     occupation:,
-  text: 'failure is never final'
+  quotes:['failure is never final',]
 
   },
   {
@@ -175,31 +177,35 @@ var quotes = [
      DOB:'1904',
     nationality:,
     occupation: 'writer', 'author', 'children',
-  text: 'Be who you are and say what your feel, because those who mind don't matter and those who matter don't mind'
+  quotes:['Be who you are and say what your feel, because those who mind dont matter and those who matter dont mind',] 
   },
   {
   Michael Jordan 
      DOB:'1963',
     nationality:'American',
     occupation: 'athlete', 'sports', 'basketball'
+    quotes:[,]
   }.
   {
   author: Thomas Edison 
      DOB:'1847',
     nationality:,'American',
-    occupation:'inventor','businessman', 
+    occupation:'inventor','businessman',
+    quotes:[,] 
   },
   {
    author: John D. Rockefeller,
       DOB:'1839',
     nationality: 'American',
     occupation: 'oil', 'business', 'industrialist','businessman'
+    quotes:[,]
   },
   {
    author: 'Abraham Lincoln'
    DOB: '1809'
    nationality: 'American'
    occupation: 'president'
+   quotes:[,]
   },
 
   {
@@ -207,6 +213,7 @@ var quotes = [
     DOB: '1930',
     nationality: 'American',
     occupation: 'investor','business', 'businessman', 'Berkshire Hathaway', 'philanphropist'
+    quotes:[,]
   },
 
 ]

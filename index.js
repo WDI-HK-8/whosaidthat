@@ -22,6 +22,7 @@ server.connection({
 var plugins = [
 
   { register: require('./routes/users.js') },
+  { register: require('./routes/quotesinsert.js')},
   { register: require('hapi-mongodb'),
     options: {
       "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/whosaidthat",
