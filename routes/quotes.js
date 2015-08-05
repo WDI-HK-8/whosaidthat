@@ -52,12 +52,28 @@ exports.register = function(server, options, next){
         });
       }
     },
-    
-    //4. PUT /quotes/{id} 
-    //5. DELETE /quotes/{id}
-    //6. GET /quotes/search?query=best   Search for quotes
-    
 
+    //4. DELETE /quotes/{id} 
+    {
+      method: 'DELETE',
+      path: '/quotes/{id}',
+      handler: function(request, reply) {
+
+        var quote_id = encodeURIComponent(request.params.id);
+        var db = request.server.plugins['hapi-mongodb'].db;
+        var ObjectId = request.server.plugins['hapi-mongodb'].ObjectID;
+
+        db.collection('quotes').remove({ "_id": ObjectId(quote_id) }, function(err, writeResult) {
+          if (err) { return reply('Internal MongoDB error', err); }
+
+          reply(writeResult);
+        });
+      }
+    },
+
+    //5. GET /quotes/search?query=best   Search for quotes
+    //6. PUT /quotes/{id}
+    
   ]);
   next();
 }
