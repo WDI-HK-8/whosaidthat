@@ -7,18 +7,20 @@ exports.register = function(server, options, next){
   
 
     //1. GET all quotes GET /quotes
+    {
     method: 'GET',
     path: '/quotes',
     handler: function(request, reply){
       reply(quotes);
-        var db = request.server.plugins['hapi-mongodb'].db;
+      var db = request.server.plugins['hapi-mongodb'].db;
 
-        db.collection('quotes').find().toArray({
-          function(err, quotes){
-            if (err) {return reply('Internal MongoDB error', err);}
-            reply(quotes);
-          }
-        })
+      db.collection('quotes').find().toArray(
+        function(err, quotes){
+          if (err) {return reply('Internal MongoDB error', err);}
+          reply(quotes);
+        }
+      );
+    }
     }
     //2. GET one quote, add select author or finding parts of that phrase from input box 
 
@@ -40,13 +42,14 @@ exports.register = function(server, options, next){
 
    //11. DELETE /authors/{id}
 
-exports.register.attributes = {
-  name: 'quotes-routes',
-  version: '0.0.1'
-} 
-
   ]);
   next();
 }
 
-var server = hapi.createServer('0.0.0.0', parseInt(process.env.PORT,10) ||3000);
+
+// var server = hapi.createServer('0.0.0.0', parseInt(process.env.PORT,10) ||3000);
+
+exports.register.attributes = {
+  name: 'quotes-routes',
+  version: '0.0.1'
+} 
