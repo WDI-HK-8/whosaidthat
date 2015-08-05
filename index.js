@@ -30,6 +30,7 @@ server.views({
 // Require MongoDB
 var plugins = [
 
+  { register: require('./routes/authors.js') },
   { register: require('./routes/quotes.js') },
   { register: require('./routes/static-pages.js')},
   { register: require('hapi-mongodb'),
