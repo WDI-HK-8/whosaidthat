@@ -2,6 +2,8 @@
 
 // Require hapi
 var Hapi = require('hapi');
+var Path = require('path');
+
 var server = new Hapi.Server();
 
 // Configure server connections
@@ -16,6 +18,13 @@ server.connection({
       credentials: true
     } 
   }
+});
+
+server.views({
+  engines:{
+    html: require('handlebars')
+  },
+  path: Path.join(__dirname, 'templates')
 });
 
 // Require MongoDB
