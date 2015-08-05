@@ -2,6 +2,8 @@
 
 // Require hapi
 var Hapi = require('hapi');
+var Path = require('path');
+
 var server = new Hapi.Server();
 
 // Configure server connections
@@ -18,13 +20,21 @@ server.connection({
   }
 });
 
+server.views({
+  engines:{
+    html: require('handlebars')
+  },
+  path: Path.join(__dirname, 'templates')
+});
+
 // Require MongoDB
 var plugins = [
 
-  { register: require('./routes/users.js') },
+  { register: require('./routes/quotes.js') },
+  { register: require('./routes/static-pages.js')},
   { register: require('hapi-mongodb'),
     options: {
-      "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/whosaidthat",
+      "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/db_whosaidthat",
       "settings": {
         "db": {
           "native_parser": false
@@ -44,39 +54,3 @@ server.register(plugins, function (err) {
     console.log('info', 'Server running at: ' + server.info.uri);
   });
 });
-
-// var Hapi = require('hapi');
-// var server = new Hapi.Server();
-
-// server.connection({
-//   host: '0.0.0.0'
-//   port: process.env.PORT || 3000,
-//   routes:{
-
-//   cors: {
-//     header:["Access-Control-Allow-Credentials"],
-//     credentials: true
-//     }
-//   }
-// });
-
-// // Require MongoDB
-// var plugins = [
-
-//   { register: require('./routes/users.js')},
-//   { register: require('hapi-mongodb'),
-//     options: {
-//       "url": process.env.MONGOLAB_URI || "mongodb://127.0.0.1:27017/whosaidthat",
-//       "settings": {
-//         "db":{
-//       "native_parser":false
-//      }
-//     }
-//    }
-//   }
-// ];
-
-// server.register(plugins.function (err) {
-//   console.log('info', 'Server running at:' + server.info.uri);
-//   });
-// });
