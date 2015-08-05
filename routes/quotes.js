@@ -16,9 +16,26 @@ exports.register = function(server, options, next){
           reply(quotes);
         });
       }
-    }
+    },
 
     //2. GET one quote, add select author or finding parts of that phrase from input box 
+    {
+      method: 'GET',
+      path: '/quotes/{id}',
+      handler: function(request, reply) {
+        var db       = request.server.plugins['hapi-mongodb'].db;
+        var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
+        var quote_id = ObjectID(encodeURIComponent(request.params.id));
+
+        db.collection('quotes').findOne({"_id": quote_id}, function(err, quotes){
+          if (err) {
+            return reply('Internal MongoDB error',err);
+          }
+          reply(quotes);
+        })
+      }
+    }
+
     //3.  POST quotes  POST/quotes/{id}
     //4. PUT /quotes/{id} 
     //5. DELETE /quotes/{id}
