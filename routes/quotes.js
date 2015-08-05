@@ -72,6 +72,8 @@ exports.register = function(server, options, next){
     },
 
     //5. GET /quotes/search?query=best   Search for quotes
+
+    
     //6. PUT /quotes/{id}
     
   ]);

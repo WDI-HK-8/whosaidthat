@@ -37,6 +37,42 @@ exports.register = function(server, options, next){
       }
     },
 
+    //3. POST /authors
+    {
+      method: 'POST',
+      path: '/authors',
+      handler: function(request, reply){
+        var db = request.server.plugins['hapi-mongodb'].db;
+      
+        var author = { message: request.payload.author.message };
+
+        db.collection('authors').insert(author, function(err, writeResult){
+          if (err) { return reply('Internal MongoDB error', err) };
+
+          reply(writeResult);
+        });
+      }
+    },
+    
+    //4. DELETE /authors/{id}
+      {
+      method: 'DELETE',
+      path: '/authors/{id}',
+      handler: function(request, reply) {
+
+        var author_id = encodeURIComponent(request.params.id);
+        var db = request.server.plugins['hapi-mongodb'].db;
+        var ObjectId = request.server.plugins['hapi-mongodb'].ObjectID;
+
+        db.collection('authors').remove({ "_id": ObjectId(author_id) }, function(err, writeResult) {
+          if (err) { return reply('Internal MongoDB error', err); }
+
+          reply(writeResult);
+        });
+      }
+    },
+
+    //5. PUT /authors/{id}
 
     
   ]);
