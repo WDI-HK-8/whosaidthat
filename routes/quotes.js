@@ -34,9 +34,29 @@ exports.register = function(server, options, next){
           reply(quotes);
         })
       }
-    }
+    },
 
-    //3.  POST quotes  POST/quotes/{id}
+    //3. POST /quotes
+  {
+   method: 'POST',
+   path: '/quotes',
+    handler: function(request, reply){
+      var db = request.server.plugins['hapi-mongodb'].db;
+      // var cookie = request.session.get('hapi_twitter_session');
+      var quote = {
+        "message": request.payload.quote.message, 
+        // "date": new Date(),
+        "quote_id": result.quote_id
+      };
+
+      db.collection('quotes').insert(quote, function(err, writeResult){
+         if (err) { 
+          return reply('Internal MongoDB error', err)
+         };
+        reply(writeResult);
+      });
+    }
+  },  
     //4. PUT /quotes/{id} 
     //5. DELETE /quotes/{id}
     //6. GET /quotes/search?query=best   Search for quotes
