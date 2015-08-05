@@ -4,7 +4,7 @@ exports.register = function(server, options, next){
 
   server.route([
   
-    //1. GET all quotes GET /quotes
+    //1. GET/quotes all quotes GET 
     {
       method: 'GET',
       path: '/quotes',
@@ -18,7 +18,7 @@ exports.register = function(server, options, next){
       }
     },
 
-    //2. GET one quote, add select author or finding parts of that phrase from input box 
+    //2. GET/quotes/{id} one quote
     {
       method: 'GET',
       path: '/quotes/{id}',
@@ -36,7 +36,7 @@ exports.register = function(server, options, next){
       }
     },
 
-    //3. POST /quotes
+    //3. POST /quotes post all quotes
     {
       method: 'POST',
       path: '/quotes',
@@ -53,7 +53,7 @@ exports.register = function(server, options, next){
       }
     },
 
-    //4. DELETE /quotes/{id} 
+    //4. DELETE /quotes/{id}  delete a quote 
     {
       method: 'DELETE',
       path: '/quotes/{id}',
@@ -72,8 +72,23 @@ exports.register = function(server, options, next){
     },
 
     //5. GET /quotes/search?query=best   Search for quotes
+    {
+      method: 'GET'
+      path: '/quotes/search',
+      handler: function(request, reply) {
+        var search = request.query.search;
+        findSearch = (search.replace(',','""');
 
-    
+        var db = request.server.plugins['hapi-mongodb'].db;
+
+        db.collection('quotes').find({$text:{$search: findIngredients}}).toArray(function(err, result)){
+          if (err) {return reply("Internal MongoDB error", err);}
+
+        reply(result);
+      })
+     }
+    },
+
     //6. PUT /quotes/{id}
     
   ]);

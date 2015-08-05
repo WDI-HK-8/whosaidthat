@@ -72,7 +72,24 @@ exports.register = function(server, options, next){
       }
     },
 
-    //5. PUT /authors/{id}
+    //5. GET /quotes/search?query=best   Search for quotes
+    {
+      method: 'GET'
+      path: '/authors/search',
+      handler: function(request, reply) {
+        var search = request.query.search;
+        findSearch = (search.replace(',','""');
+
+        var db = request.server.plugins['hapi-mongodb'].db;
+
+        db.collection('quotes').find({$text:{$search: findAuthors}}).toArray(function(err, result)){
+          if (err) {return reply("Internal MongoDB error", err);}
+
+        reply(result);
+      })
+     }
+    },
+    //6. PUT /authors/{id}
 
     
   ]);
