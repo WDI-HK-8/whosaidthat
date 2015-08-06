@@ -3,12 +3,20 @@ $(document).ready(function(){
   var QuoteFinder = function(){
      author = this.quotes;
   };
+//populate drop down menu with all authors and their ids from the database
+  $.ajax({
+    type:'GET',
+    url: 'authors',
+      success: function(response){
+        html = "<div id='selectAuthor'>"
+        response.forEach(function(elem,i)){
 
-
-  // $('#searchauthor').click(function(){
-  //   event.preventDefault();
-
-  //1. GET  select from drop down menu an author, display data from authors database, give quotes also
+          html += '<option>' + elem.name +  '</option>'
+        }
+      }
+  }),
+  
+  // GET  quotes
     
   $.ajax({
     type: 'GET',
@@ -21,19 +29,6 @@ $(document).ready(function(){
         
         html +=  '<div id="authorDOB">'
         html +=     '<p>quote:' + elem.quote + '</p>'
-        html +=  '</div>'
-        html +=  '<div id="authorOccup">'
-        html +=     '<p>Occupation/Industry:'+elem.occup+'</p>'
-        html += ' </div>'
-        html +=  '<div id="authorNationality">'
-        html +=    '<p> Nationality:' + elem.nationality + '</p>'
-        html +=  '</div>'
-        html +=  '<div id="authorImage">'
-        html +=    '<img id="authorImage" class="img-responsive center-block" src="">'
-        html +=  '</div>'
-        html +=    '<button class="btn btn-success" type="button" id="clearpostbtn">Clear Post </button>'
-        html +=  '</div>'
-      
     });
 
     $('.dAfterSearch').append(html);
@@ -41,7 +36,82 @@ $(document).ready(function(){
    error: function(response){
      console.log("Cannot find quotes and data for author.");
   }
- });
+ }),
+
+// GET bios of author 
+
+  $.ajax({
+    type: 'GET',
+    url: 'authors',
+     success: function(response){
+      html = '<div class="dAfterSearch col-lg-12">'
+      
+      response.forEach(function(elem,i) {
+        html +='<div id="authorDOB">'
+        html += '<p>DOB:' + elem.DOB + '</p>'
+        html +=  '</div>'
+        html += '<div id="authorOccup">'
+        html += '<p>Occupation/Industry:' + elem.occupation + '</p>'
+        html += '</div>'
+        html += '<div id="authorNationality">'
+        html += '<p>Nationality:' + elem.nationality + '</p>'
+        html += '</div>'
+        html += '<div id="authorImage">'
+        html += '<img id="authorImage" class="img-responsive center-block" src="">'
+        html += '</div>'
+       
+    });
+
+    $('.dAfterSearch').append(html);
+   },
+   error: function(response){
+     console.log("Cannot find quotes and data for author.");
+  }
+ }),
+        
+
+    $('.dAfterSearch').append(html);
+   },
+   error: function(response){
+     console.log("Cannot find quotes and data for author.");
+  }
+ }),
+
+//Clear quotes data 
+
+  $('#clearpostbtn').on('click', function(){
+    $.ajax({
+      type: "DELETE",
+      url: "quotes",
+      success: function(response){
+        console.log(response);
+      },
+    });
+  }),
+
+  //Clear delete data 
+
+  $('#clearpostbtn').on('click', function(){
+    $.ajax({
+      type: "DELETE",
+      url: "authors",
+      success: function(response){
+        console.log(response);
+      },
+    });
+  });
+
+};
+
+
+
+
+// $('#clickDisplay').click(function(){
+//     var search = $('#searchterms').val()
+//     urlDestination="findRecipe?search="+search;
+//     window.location.href=urlDestination;
+//   })
+
 
 
 //2. GET type an author into the input bar, display data from authors database, give quotes also 
