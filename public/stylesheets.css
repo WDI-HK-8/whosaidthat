@@ -1,0 +1,46 @@
+body{
+  background-image: url("assets/background.jpg");
+}
+
+section.wrapper {
+  padding: 40px 300px 0 300px;
+  text-align: center;
+}
+
+.container {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+
+#selectAuthor {
+  margin-top:30px;
+}
+
+#searchSheet > div div.title-center h3{
+  margin-top: 20px;
+  font-size:30px;
+}
+
+#searchSheet div#searchTwo div.title-center {
+  clear: both;
+  margin-top: 30px;
+}
+#searchauthorbtn {
+  margin-bottom: 30px;
+}
+
+#searchSheet > div input {
+  margin-bottom: 10px;
+  height: 40px;
+}
+
+div.dAfterSearch {
+  text-align: left;
+  font-size:16px;
+}
+
+div.dAfterSearch button {
+  margin-top: 30px;
+  width: 260px;
+}
