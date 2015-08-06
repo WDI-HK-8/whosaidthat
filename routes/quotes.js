@@ -21,7 +21,7 @@ exports.register = function(server, options, next){
     //2. GET/quotes/{id} one quote
     {
       method: 'GET',
-      path: '/quote/{id}',
+      path: '/quotes/{id}',
       handler: function(request, reply) {
         var db       = request.server.plugins['hapi-mongodb'].db;
         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
@@ -43,7 +43,10 @@ exports.register = function(server, options, next){
       handler: function(request, reply){
         var db = request.server.plugins['hapi-mongodb'].db;
       
-        var quote = { message: request.payload.quote.message };
+        var quote = { 
+          quote:   request.payload.quotes.quote,
+          author:  request.payload.quotes.author
+        };
 
         db.collection('quotes').insert(quote, function(err, writeResult){
           if (err) { return reply('Internal MongoDB error', err) };
@@ -71,22 +74,21 @@ exports.register = function(server, options, next){
       }
     },
 
-    //5. GET /quotes/search?query=best   Search for quotes
+    //5. GET http://localhost:3000/quotes/search?terms=fool
     {
       method: 'GET',
       path: '/quotes/search',
       handler: function(request, reply) {
-        var search = request.query.search;
-        var findSearch = (search.replace(',','""'));
-
         var db = request.server.plugins['hapi-mongodb'].db;
 
-        db.collection('quotes').find({$text:{$search: findSearch}}).toArray(function(err, result){
+        var search = request.query.terms.replace(',',' ');
+
+        db.collection('quotes').find({$text: {$search: search}}).toArray(function(err, result){
           if (err) {return reply("Internal MongoDB error", err);}
 
-        reply(result);
-      })
-     }
+          reply(result);
+        })
+      }
     },
 
     //6. PUT /quotes/{id}

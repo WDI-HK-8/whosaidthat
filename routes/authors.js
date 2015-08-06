@@ -22,17 +22,23 @@ exports.register = function(server, options, next){
      // 2. GET /authors/{id}
     {
       method: 'GET',
-      path: '/author/{id}',
+      path: '/authors/{id}',
       handler: function(request, reply) {
         var db       = request.server.plugins['hapi-mongodb'].db;
         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
         var author_id = ObjectID(encodeURIComponent(request.params.id));
 
-        db.collection('authors').findOne({"_id": author_id}, function(err, authors){
+        db.collection('authors').findOne({"_id": author_id}, function(err, author){
           if (err) {
             return reply('Internal MongoDB error',err);
           }
-          reply(authors);
+
+          db.collection('quotes').find({ author: author_id }).toArray(function(err, quotes){
+            reply({
+              author: author,
+              quotes: quotes
+            });
+          });
         })
       }
     },
@@ -44,7 +50,13 @@ exports.register = function(server, options, next){
       handler: function(request, reply){
         var db = request.server.plugins['hapi-mongodb'].db;
       
-        var author = { message: request.payload.author.message };
+        var author = {
+          name:        request.payload.author.name,
+          DOB:         request.payload.author.DOB,
+          occupation:  request.payload.author.occupation,
+          nationality: request.payload.author.nationality,
+          image:       request.payload.author.image
+       };
 
         db.collection('authors').insert(author, function(err, writeResult){
           if (err) { return reply('Internal MongoDB error', err) };
