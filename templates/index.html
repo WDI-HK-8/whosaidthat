@@ -2,12 +2,13 @@
 <html>
 <head>
   <title>Quotes using hapi.js- building a backend with a database and using search</title>
-   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-
+  
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="public/application.js"></script>
 
-<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/public/stylesheets.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/public/stylesheets.css">
 
 </head>
 <body>
@@ -35,18 +36,20 @@
     </div>
 
 <!-- // display after search -->
+
+
     <div class="dAfterSearch col-lg-12">
-      <div id="dobtext">
+      <div id="authorDOB">
          <p>DOB:</p>
       </div>
-      <div id="occupationtext">
+      <div id="authorOccup">
          <p>Occupation/Industry:</p>
       </div>
-      <div id="nationalitytext">
+      <div id="authorNationality">
          <p>Nationality:</p>
       </div>
-       <div id="image">
-        url= 
+       <div id="authorImage">
+        <img id="authorImage" class="img-responsive center-block" src="">
         </div>
         <button class="btn btn-success" type="button" id="clearpostbtn">Clear Post </button>
     </div>

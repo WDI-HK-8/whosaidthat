@@ -74,15 +74,15 @@ exports.register = function(server, options, next){
 
     //5. GET /quotes/search?query=best   Search for quotes
     {
-      method: 'GET'
+      method: 'GET',
       path: '/authors/search',
       handler: function(request, reply) {
         var search = request.query.search;
-        findSearch = (search.replace(',','""');
+        // findSearch = (search.replace(',','""');
 
         var db = request.server.plugins['hapi-mongodb'].db;
 
-        db.collection('quotes').find({$text:{$search: findAuthors}}).toArray(function(err, result)){
+        db.collection('quotes').find({$text:{$search: findAuthors}}).toArray(function(err, result){
           if (err) {return reply("Internal MongoDB error", err);}
 
         reply(result);
