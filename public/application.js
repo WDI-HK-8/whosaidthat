@@ -13,10 +13,35 @@ $(document).ready(function(){
   $.ajax({
     type: 'GET',
     url: 'quotes',
-    success: function(response){
-     console.log(response);
-    }
-  });
+     success: function(response){
+      html = '<div class="dAfterSearch col-lg-12">'
+      
+      response.forEach(function(elem,i) {
+
+        
+        html +=  '<div id="authorDOB">'
+        html +=     '<p>quote:' + elem.quote + '</p>'
+        html +=  '</div>'
+        html +=  '<div id="authorOccup">'
+        html +=     '<p>Occupation/Industry:'+elem.occup+'</p>'
+        html += ' </div>'
+        html +=  '<div id="authorNationality">'
+        html +=    '<p> Nationality:' + elem.nationality + '</p>'
+        html +=  '</div>'
+        html +=  '<div id="authorImage">'
+        html +=    '<img id="authorImage" class="img-responsive center-block" src="">'
+        html +=  '</div>'
+        html +=    '<button class="btn btn-success" type="button" id="clearpostbtn">Clear Post </button>'
+        html +=  '</div>'
+      
+    });
+
+    $('.dAfterSearch').append(html);
+   },
+   error: function(response){
+     console.log("Cannot find quotes and data for author.");
+  }
+ });
 
 
 //2. GET type an author into the input bar, display data from authors database, give quotes also 

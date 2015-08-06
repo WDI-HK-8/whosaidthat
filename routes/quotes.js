@@ -81,7 +81,7 @@ exports.register = function(server, options, next){
 
         var db = request.server.plugins['hapi-mongodb'].db;
 
-        db.collection('quotes').find({$text:{$search: findIngredients}}).toArray(function(err, result){
+        db.collection('quotes').find({$text:{$search: findQuotes}}).toArray(function(err, result){
           if (err) {return reply("Internal MongoDB error", err);}
 
         reply(result);

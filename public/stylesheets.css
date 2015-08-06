@@ -9,6 +9,11 @@ section.wrapper {
   margin-bottom: 40px;
 }
 
+
+#selectAuthor {
+  margin-top:30px;
+}
+
 #searchSheet > div div.title-center h3{
   margin-top: 20px;
   font-size:30px;
