@@ -74,4 +74,29 @@ $(document).ready(function(){
     })
   });
 
+//Delete post 
+
+ $('#clearpostbtn').on('click', function(){
+    $.ajax({
+      type: "DELETE",
+      url: "quotes" ,
+      success: function(response){
+        console.log(response);
+      },
+    });
+  }),
+
+  //Clear delete data 
+
+  $('#clearpostbtn').on('click', function(){
+    $.ajax({
+      type: "DELETE",
+      url: "authors",
+      success: function(response){
+        console.log(response);
+      },
+    });
+  });
+
+
 });
