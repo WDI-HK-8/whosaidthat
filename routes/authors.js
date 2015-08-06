@@ -1,69 +1,70 @@
+
 var Hapi = require('hapi');
 
 exports.register = function(server, options, next){
 
   server.route([
   
-    //1. GET/quotes all quotes GET 
+    //1. GET /authors 
     {
       method: 'GET',
-      path: '/quotes',
+      path: '/authors',
       handler: function(request, reply) {
         var db = request.server.plugins['hapi-mongodb'].db;
 
-        db.collection('quotes').find().toArray(function(err, quotes){
+        db.collection('authors').find().toArray(function(err, authors){
           if (err) {return reply('Internal MongoDB error', err);}
-          reply(quotes);
+          reply(authors);
         });
       }
     },
 
-    //2. GET/quotes/{id} one quote
+     // 2. GET /authors/{id}
     {
       method: 'GET',
-      path: '/quote/{id}',
+      path: '/author/{id}',
       handler: function(request, reply) {
         var db       = request.server.plugins['hapi-mongodb'].db;
         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
-        var quote_id = ObjectID(encodeURIComponent(request.params.id));
+        var author_id = ObjectID(encodeURIComponent(request.params.id));
 
-        db.collection('quotes').findOne({"_id": quote_id}, function(err, quotes){
+        db.collection('authors').findOne({"_id": author_id}, function(err, authors){
           if (err) {
             return reply('Internal MongoDB error',err);
           }
-          reply(quotes);
+          reply(authors);
         })
       }
     },
 
-    //3. POST /quotes post all quotes
+    //3. POST /authors add a new author
     {
       method: 'POST',
-      path: '/quotes',
+      path: '/authors',
       handler: function(request, reply){
         var db = request.server.plugins['hapi-mongodb'].db;
       
-        var quote = { message: request.payload.quote.message };
+        var author = { message: request.payload.author.message };
 
-        db.collection('quotes').insert(quote, function(err, writeResult){
+        db.collection('authors').insert(author, function(err, writeResult){
           if (err) { return reply('Internal MongoDB error', err) };
 
           reply(writeResult);
         });
       }
     },
-
-    //4. DELETE /quotes/{id}  delete a quote 
-    {
+    
+    //4. DELETE /authors/{id}
+      {
       method: 'DELETE',
-      path: '/quotes/{id}',
+      path: '/authors/{id}',
       handler: function(request, reply) {
 
-        var quote_id = encodeURIComponent(request.params.id);
+        var author_id = encodeURIComponent(request.params.id);
         var db = request.server.plugins['hapi-mongodb'].db;
         var ObjectId = request.server.plugins['hapi-mongodb'].ObjectID;
 
-        db.collection('quotes').remove({ "_id": ObjectId(quote_id) }, function(err, writeResult) {
+        db.collection('authors').remove({ "_id": ObjectId(author_id) }, function(err, writeResult) {
           if (err) { return reply('Internal MongoDB error', err); }
 
           reply(writeResult);
@@ -74,22 +75,22 @@ exports.register = function(server, options, next){
     //5. GET /quotes/search?query=best   Search for quotes
     {
       method: 'GET',
-      path: '/quotes/search',
+      path: '/authors/search',
       handler: function(request, reply) {
         var search = request.query.search;
         var findSearch = (search.replace(',','""'));
 
         var db = request.server.plugins['hapi-mongodb'].db;
 
-        db.collection('quotes').find({$text:{$search: findSearch}}).toArray(function(err, result){
+        db.collection('quotes').find({$text:{$search: findAuthors}}).toArray(function(err, result){
           if (err) {return reply("Internal MongoDB error", err);}
 
         reply(result);
       })
      }
     },
+    //6. PUT /authors/{id}
 
-    //6. PUT /quotes/{id}
     
   ]);
   next();
@@ -99,6 +100,10 @@ exports.register = function(server, options, next){
 // var server = hapi.createServer('0.0.0.0', parseInt(process.env.PORT,10) ||3000);
 
 exports.register.attributes = {
-  name: 'quotes-routes',
+  name: 'authors-routes',
   version: '0.0.1'
 } 
+
+
+
+   
