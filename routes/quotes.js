@@ -21,7 +21,7 @@ exports.register = function(server, options, next){
     //2. GET/quotes/{id} one quote
     {
       method: 'GET',
-      path: '/quotes/{id}',
+      path: '/quote/{id}',
       handler: function(request, reply) {
         var db       = request.server.plugins['hapi-mongodb'].db;
         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
@@ -77,11 +77,11 @@ exports.register = function(server, options, next){
       path: '/quotes/search',
       handler: function(request, reply) {
         var search = request.query.search;
-        // findSearch = (search.replace(',','""');
+        var findSearch = (search.replace(',','""'));
 
         var db = request.server.plugins['hapi-mongodb'].db;
 
-        db.collection('quotes').find({$text:{$search: findQuotes}}).toArray(function(err, result){
+        db.collection('quotes').find({$text:{$search: findSearch}}).toArray(function(err, result){
           if (err) {return reply("Internal MongoDB error", err);}
 
         reply(result);

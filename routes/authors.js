@@ -22,7 +22,7 @@ exports.register = function(server, options, next){
      // 2. GET /authors/{id}
     {
       method: 'GET',
-      path: '/authors/{id}',
+      path: '/author/{id}',
       handler: function(request, reply) {
         var db       = request.server.plugins['hapi-mongodb'].db;
         var ObjectID = request.server.plugins['hapi-mongodb'].ObjectID;
@@ -37,7 +37,7 @@ exports.register = function(server, options, next){
       }
     },
 
-    //3. POST /authors
+    //3. POST /authors add a new author
     {
       method: 'POST',
       path: '/authors',
@@ -78,7 +78,7 @@ exports.register = function(server, options, next){
       path: '/authors/search',
       handler: function(request, reply) {
         var search = request.query.search;
-        // findSearch = (search.replace(',','""');
+        var findSearch = (search.replace(',','""'));
 
         var db = request.server.plugins['hapi-mongodb'].db;
 
